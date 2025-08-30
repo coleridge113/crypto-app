@@ -3,10 +3,12 @@ package com.luna.cryptoapp.presentation.coin_list
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.compose.runtime.State
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.onEach
 import com.luna.cryptoapp.common.Resource
 import com.luna.cryptoapp.domain.use_case.get_coins.GetCoinsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.launchIn
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,8 +19,11 @@ class CoinListViewModel @Inject constructor(
     private val _state = mutableStateOf<CoinListState>(CoinListState())
     val state: State<CoinListState> = _state
 
-    private fun getCoins() {
+    init {
+        getCoins()
+    }
 
+    private fun getCoins() {
         getCoinsUseCase().onEach { result ->
             when(result) {
                 is Resource.Success -> {
@@ -26,7 +31,9 @@ class CoinListViewModel @Inject constructor(
                 }
 
                 is Resource.Error -> {
-                    _state.value = CoinListState(error = result.message ?: "An unexpected error occurred")
+                    _state.value = CoinListState(
+                        error = result.message ?: "An unexpected error occurred"
+                    )
                 }
 
                 is Resource.Loading -> {
@@ -34,7 +41,6 @@ class CoinListViewModel @Inject constructor(
 
                 }
             }
-        }
-
+        }.launchIn(viewModelScope)
     }
 }
