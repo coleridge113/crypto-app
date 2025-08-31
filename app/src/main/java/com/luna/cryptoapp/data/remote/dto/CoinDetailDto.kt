@@ -45,11 +45,16 @@ fun CoinDetailDto.toCoinDetail(): CoinDetail {
     return CoinDetail(
         coinId = id,
         name = name,
-        description = description,
+        description = shortenDescription(description),
         symbol = symbol,
         rank = rank,
         isActive = isActive,
         tags = tags.map { it.name },
         team = team
     )
+}
+
+fun shortenDescription(description: String): String {
+    val regex = Regex("<p>(.*?)</p>", RegexOption.DOT_MATCHES_ALL)
+    return regex.find(description)?.groupValues?.get(1)?.trim() ?: ""
 }
