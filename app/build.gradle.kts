@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     id("com.google.dagger.hilt.android")
     id("com.google.devtools.ksp")
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.2.10"
 }
 
 android {
@@ -85,5 +86,6 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.runtime)
 
-
+    // Kotlin Serialization
+    implementation(libs.kotlinx.serialization.json)
 }
