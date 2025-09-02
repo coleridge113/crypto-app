@@ -11,6 +11,7 @@ import com.luna.cryptoapp.common.Resource
 import com.luna.cryptoapp.domain.use_case.get_coin.GetCoinUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,23 +30,25 @@ class CoinDetailViewModel @Inject constructor(
     }
 
     private fun getCoin(coinId: String) {
-        getCoinUseCase(coinId).onEach { result ->
-            when(result) {
-                is Resource.Success -> {
-                    _state.value = CoinDetailState(coin = result.data)
-                }
+        viewModelScope.launch {
+            getCoinUseCase(coinId).onEach { result ->
+                when(result) {
+                    is Resource.Success -> {
+                        _state.value = CoinDetailState(coin = result.data)
+                    }
 
-                is Resource.Error -> {
-                    _state.value = CoinDetailState(
-                        error = result.message ?: "An unexpected error occurred"
-                    )
-                }
+                    is Resource.Error -> {
+                        _state.value = CoinDetailState(
+                            error = result.message ?: "An unexpected error occurred"
+                        )
+                    }
 
-                is Resource.Loading -> {
-                    _state.value = CoinDetailState(isLoading = true)
+                    is Resource.Loading -> {
+                        _state.value = CoinDetailState(isLoading = true)
 
+                    }
                 }
-            }
-        }.launchIn(viewModelScope)
+            }.launchIn(this)
+        }
     }
 }
