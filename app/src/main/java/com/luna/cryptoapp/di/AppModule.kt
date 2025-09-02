@@ -3,7 +3,7 @@ package com.luna.cryptoapp.di
 import com.luna.cryptoapp.common.Constants.BASE_URL
 import com.luna.cryptoapp.data.remote.CoinPaprikaApi
 import com.luna.cryptoapp.domain.repository.CoinRepository
-import com.luna.cryptoapp.domain.repository.CoinRepositoryImpl
+import com.luna.cryptoapp.data.repository.CoinRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

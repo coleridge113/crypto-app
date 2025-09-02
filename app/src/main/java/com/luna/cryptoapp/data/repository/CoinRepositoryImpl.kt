@@ -1,8 +1,9 @@
-package com.luna.cryptoapp.domain.repository
+package com.luna.cryptoapp.data.repository
 
 import com.luna.cryptoapp.data.remote.CoinPaprikaApi
 import com.luna.cryptoapp.data.remote.dto.CoinDetailDto
 import com.luna.cryptoapp.data.remote.dto.CoinDto
+import com.luna.cryptoapp.domain.repository.CoinRepository
 import javax.inject.Inject
 
 class CoinRepositoryImpl @Inject constructor(
@@ -12,7 +13,7 @@ class CoinRepositoryImpl @Inject constructor(
         return api.getAllCoins()
     }
 
-    override suspend fun getCoinById(coinId: String): CoinDetailDto{
+    override suspend fun getCoinById(coinId: String): CoinDetailDto {
         return api.getCoinById(coinId)
     }
 }
