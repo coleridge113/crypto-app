@@ -1,6 +1,7 @@
 package com.luna.cryptoapp.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
+import com.luna.cryptoapp.data.local.entity.CoinDetailEntity
 import com.luna.cryptoapp.domain.model.CoinDetail
 
 data class CoinDetailDto(
@@ -41,16 +42,32 @@ data class CoinDetailDto(
     val whitepaper: Whitepaper
 )
 
-fun CoinDetailDto.toCoinDetail(): CoinDetail {
-    return CoinDetail(
-        coinId = id,
-        name = name,
-        description = shortenDescription(description),
-        symbol = symbol,
-        rank = rank,
+fun CoinDetailDto.toCoinDetail(): CoinDetailEntity {
+    return CoinDetailEntity(
+        id = id,
+        description = description,
+        developmentStatus = developmentStatus,
+        firstDataAt = firstDataAt,
+        hardwareWallet = hardwareWallet,
+        hashAlgorithm = hashAlgorithm,
         isActive = isActive,
-        tags = tags.map { it.name },
-        team = team
+        isNew = isNew,
+        lastDataAt = lastDataAt,
+        links = links,
+        linksExtended = linksExtended,
+        logo = logo,
+        message = message,
+        name = name,
+        openSource = openSource,
+        orgStructure = orgStructure,
+        proofType = proofType,
+        rank = rank,
+        startedAt = startedAt,
+        symbol = symbol,
+        tags = tags,
+        team = team,
+        type = type,
+        whitepaper = whitepaper
     )
 }
 
