@@ -33,7 +33,7 @@ data class CoinDetailDto(
     @SerializedName("open_source")
     val openSource: Boolean,
     @SerializedName("org_structure")
-    val orgStructure: String,
+    val orgStructure: String? = "",
     @SerializedName("proof_type")
     val proofType: String,
     val rank: Int,
@@ -63,7 +63,7 @@ fun CoinDetailDto.toCoinDetailEntity(): CoinDetailEntity {
         message = message,
         name = name,
         openSource = openSource,
-        orgStructure = orgStructure,
+        orgStructure = orgStructure ?: "",
         proofType = proofType,
         rank = rank,
         startedAt = startedAt ?: "",
