@@ -15,6 +15,7 @@ data class CoinDetailEntity(
     @PrimaryKey(autoGenerate = false)
     val id: String,
     val description: String,
+    @ColumnInfo("development_status")
     val developmentStatus: String,
     @ColumnInfo("first_data_at")
     val firstDataAt: String,
@@ -28,7 +29,7 @@ data class CoinDetailEntity(
     val isNew: Boolean,
     @ColumnInfo("last_data_at")
     val lastDataAt: String,
-    val links: Links,
+    val links: Links? = null,
     @ColumnInfo("links_extended")
     val linksExtended: List<LinksExtended>,
     val logo: String,

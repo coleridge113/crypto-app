@@ -3,6 +3,7 @@ package com.luna.cryptoapp.data.repository
 import com.luna.cryptoapp.data.local.AppDatabase
 import com.luna.cryptoapp.data.local.entity.CoinDetailEntity
 import com.luna.cryptoapp.data.local.entity.CoinEntity
+import com.luna.cryptoapp.data.local.entity.toCoinDetail
 import com.luna.cryptoapp.data.remote.dto.toCoinDetailEntity
 import com.luna.cryptoapp.data.remote.dto.toCoinEntity
 import javax.inject.Inject
@@ -25,9 +26,10 @@ class CoinLocalSourceImpl @Inject constructor(
         return try {
             db.coinDetailDao().getCoinById(coinId)
         } catch (_: Exception) {
-            val remoteData = remote.getCoinById(coinId).toCoinDetailEntity()
-            db.coinDetailDao().insertCoin(remoteData)
-            remoteData
+            val remoteData = remote.getCoinById(coinId)
+            val convertedData = remoteData.toCoinDetailEntity()
+            db.coinDetailDao().insertCoin(convertedData)
+            convertedData
         }
     }
 }

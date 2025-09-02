@@ -3,26 +3,30 @@ package com.luna.cryptoapp.data.remote.dto
 import com.google.gson.annotations.SerializedName
 import com.luna.cryptoapp.data.local.entity.CoinDetailEntity
 import com.luna.cryptoapp.domain.model.CoinDetail
+import java.io.Serial
 
 data class CoinDetailDto(
+    @SerializedName("description")
     val description: String,
+    @SerializedName("development_status")
     val developmentStatus: String? = "",
     @SerializedName("first_data_at")
-    val firstDataAt: String,
+    val firstDataAt: String? = "",
     @SerializedName("hardware_wallet")
     val hardwareWallet: Boolean,
     @SerializedName("hash_algorithm")
-    val hashAlgorithm: String,
-    val id: String,
+    val hashAlgorithm: String? = "",
+    val id: String? = "",
     @SerializedName("is_active")
     val isActive: Boolean,
     @SerializedName("is_new")
     val isNew: Boolean,
     @SerializedName("last_data_at")
     val lastDataAt: String,
-    val links: Links,
+    @SerializedName("links")
+    val links: Links? = null,
     @SerializedName("links_extended")
-    val linksExtended: List<LinksExtended>,
+    val linksExtended: List<LinksExtended>? = emptyList(),
     val logo: String,
     val message: String,
     val name: String,
@@ -34,27 +38,27 @@ data class CoinDetailDto(
     val proofType: String,
     val rank: Int,
     @SerializedName("started_at")
-    val startedAt: String,
+    val startedAt: String? = "",
     val symbol: String,
-    val tags: List<Tag>,
-    val team: List<TeamMember>,
+    val tags: List<Tag>? = emptyList(),
+    val team: List<TeamMember>? = emptyList(),
     val type: String,
     val whitepaper: Whitepaper
 )
 
 fun CoinDetailDto.toCoinDetailEntity(): CoinDetailEntity {
     return CoinDetailEntity(
-        id = id,
-        description = description,
+        id = id ?: "",
+        description = shortenDescription(description),
         developmentStatus = developmentStatus ?: "",
-        firstDataAt = firstDataAt,
+        firstDataAt = firstDataAt ?: "",
         hardwareWallet = hardwareWallet,
-        hashAlgorithm = hashAlgorithm,
+        hashAlgorithm = hashAlgorithm ?: "",
         isActive = isActive,
         isNew = isNew,
         lastDataAt = lastDataAt,
         links = links,
-        linksExtended = linksExtended,
+        linksExtended = linksExtended ?: emptyList(),
         logo = logo,
         message = message,
         name = name,
@@ -62,10 +66,10 @@ fun CoinDetailDto.toCoinDetailEntity(): CoinDetailEntity {
         orgStructure = orgStructure,
         proofType = proofType,
         rank = rank,
-        startedAt = startedAt,
+        startedAt = startedAt ?: "",
         symbol = symbol,
-        tags = tags,
-        team = team,
+        tags = tags ?: emptyList(),
+        team = team ?: emptyList(),
         type = type,
         whitepaper = whitepaper
     )
