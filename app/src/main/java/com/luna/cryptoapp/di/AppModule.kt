@@ -1,9 +1,12 @@
 package com.luna.cryptoapp.di
 
 import com.luna.cryptoapp.common.Constants.BASE_URL
+import com.luna.cryptoapp.data.local.AppDatabase
 import com.luna.cryptoapp.data.remote.CoinPaprikaApi
-import com.luna.cryptoapp.domain.repository.CoinRepository
+import com.luna.cryptoapp.data.repository.CoinLocalSourceImpl
+import com.luna.cryptoapp.data.repository.CoinRemoteSourceImpl
 import com.luna.cryptoapp.data.repository.CoinRepositoryImpl
+import com.luna.cryptoapp.domain.repository.CoinRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,7 +31,19 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideCoinRepository(api: CoinPaprikaApi): CoinRepository {
-        return CoinRepositoryImpl(api)
+    fun provideRemoteSource(api: CoinPaprikaApi): CoinRemoteSourceImpl {
+        return CoinRemoteSourceImpl(api)
+    }
+
+    @Provides
+    @Singleton
+    fun provideLocalSource(db: AppDatabase, remote: CoinRemoteSourceImpl): CoinLocalSourceImpl {
+        return CoinLocalSourceImpl(db, remote)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCoinRepository(local: CoinLocalSourceImpl): CoinRepository {
+        return CoinRepositoryImpl(local)
     }
 }
