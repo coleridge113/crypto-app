@@ -6,7 +6,7 @@ import com.luna.cryptoapp.domain.model.CoinDetail
 
 data class CoinDetailDto(
     val description: String,
-    val developmentStatus: String,
+    val developmentStatus: String? = "",
     @SerializedName("first_data_at")
     val firstDataAt: String,
     @SerializedName("hardware_wallet")
@@ -46,7 +46,7 @@ fun CoinDetailDto.toCoinDetailEntity(): CoinDetailEntity {
     return CoinDetailEntity(
         id = id,
         description = description,
-        developmentStatus = developmentStatus,
+        developmentStatus = developmentStatus ?: "",
         firstDataAt = firstDataAt,
         hardwareWallet = hardwareWallet,
         hashAlgorithm = hashAlgorithm,
