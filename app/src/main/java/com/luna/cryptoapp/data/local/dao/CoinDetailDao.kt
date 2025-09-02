@@ -11,5 +11,6 @@ interface CoinDetailDao {
     fun getCoinById(coinId: String): CoinDetailEntity
 
     @Insert
+    fun insertCoin(coin: CoinDetailEntity)
 
 }
