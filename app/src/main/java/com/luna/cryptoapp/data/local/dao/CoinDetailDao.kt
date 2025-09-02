@@ -8,9 +8,9 @@ import com.luna.cryptoapp.data.local.entity.CoinDetailEntity
 @Dao
 interface CoinDetailDao {
     @Query("select * from coin_details where id = :coinId")
-    fun getCoinById(coinId: String): CoinDetailEntity
+    suspend fun getCoinById(coinId: String): CoinDetailEntity
 
     @Insert
-    fun insertCoin(coin: CoinDetailEntity)
+    suspend fun insertCoin(coin: CoinDetailEntity)
 
 }
