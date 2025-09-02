@@ -16,7 +16,7 @@ data class CoinDto(
     val type: String
 )
 
-fun CoinDto.toCoin(): CoinEntity {
+fun CoinDto.toCoinEntity(): CoinEntity {
     return CoinEntity(
         id = id,
         isActive = isActive,
