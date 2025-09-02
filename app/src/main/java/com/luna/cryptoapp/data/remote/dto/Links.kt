@@ -1,10 +1,15 @@
 package com.luna.cryptoapp.data.remote.dto
 
+import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Links(
     val explorer: List<String>,
     val facebook: List<String>,
     val reddit: List<String>,
-    val source_code: List<String>,
+    @SerializedName("source_code")
+    val sourceCode: List<String>,
     val website: List<String>,
     val youtube: List<String>
 )
