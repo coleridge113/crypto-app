@@ -1,7 +1,6 @@
 package com.luna.cryptoapp.domain.use_case.get_coins
 
 import com.luna.cryptoapp.common.Resource
-import com.luna.cryptoapp.data.remote.dto.toCoin
 import com.luna.cryptoapp.domain.model.Coin
 import com.luna.cryptoapp.domain.repository.CoinRepository
 import kotlinx.coroutines.flow.Flow
@@ -16,7 +15,7 @@ class GetCoinsUseCase @Inject constructor(
     operator fun invoke(): Flow<Resource<List<Coin>>> = flow {
             try {
                 emit(Resource.Loading())
-                val coins = repository.getCoins().map { it.toCoin() }
+                val coins = repository.getCoins()
                 emit(Resource.Success(coins))
             } catch (e: HttpException) {
                 emit(Resource.Error(e.localizedMessage ?: "An unexpected error occurred"))

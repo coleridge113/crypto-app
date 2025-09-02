@@ -1,8 +1,6 @@
 package com.luna.cryptoapp.domain.use_case.get_coin
 
 import com.luna.cryptoapp.common.Resource
-import com.luna.cryptoapp.data.remote.dto.toCoin
-import com.luna.cryptoapp.data.remote.dto.toCoinDetail
 import com.luna.cryptoapp.domain.model.Coin
 import com.luna.cryptoapp.domain.model.CoinDetail
 import com.luna.cryptoapp.domain.repository.CoinRepository
@@ -19,7 +17,7 @@ class GetCoinUseCase @Inject constructor(
         return flow {
             try {
                 emit(Resource.Loading())
-                val coin = repository.getCoinById(coinId).toCoinDetail()
+                val coin = repository.getCoinById(coinId)
                 emit(Resource.Success(coin))
             } catch (e: HttpException) {
                 emit(Resource.Error(e.localizedMessage ?: "An unexpected error occurred"))
