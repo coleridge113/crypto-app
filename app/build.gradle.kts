@@ -81,7 +81,9 @@ dependencies {
     implementation (libs.logging.interceptor)
 
     // Room Database
-
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.room.runtime)
 
 
 }
