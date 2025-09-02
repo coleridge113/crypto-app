@@ -2,8 +2,9 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    id("org.jetbrains.kotlin.kapt")
     id("com.google.dagger.hilt.android")
+    id("com.google.devtools.ksp")
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.2.10"
 }
 
 android {
@@ -70,8 +71,8 @@ dependencies {
 
     //Dagger - Hilt
     implementation (libs.hilt.android)
-    kapt (libs.hilt.android.compiler)
-    kapt (libs.androidx.hilt.compiler)
+    ksp (libs.hilt.android.compiler)
+    ksp (libs.androidx.hilt.compiler)
     implementation (libs.androidx.hilt.navigation.compose)
 
     // Retrofit
@@ -80,5 +81,11 @@ dependencies {
     implementation (libs.okhttp)
     implementation (libs.logging.interceptor)
 
+    // Room Database
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.room.runtime)
 
+    // Kotlin Serialization
+    implementation(libs.kotlinx.serialization.json)
 }
